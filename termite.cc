@@ -587,12 +587,10 @@ static void move_backward(VteTerminal *vte, select_info *select, F is_word) {
     bool in_word = false;
 
     for (long i = length - 2; i > 0; i--) {
-        if (!is_word(codepoints[i - 1])) {
-            if (in_word) {
-                break;
-            }
-        } else {
+        if (is_word(codepoints[i - 1])) {
             in_word = true;
+        } else if (in_word) {
+            break;
         }
         cursor_col--;
     }
